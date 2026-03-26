@@ -1,0 +1,52 @@
+.d1{
+    width: 450px;
+    height: 400px;
+    margin-left: 20px;
+    border: 1px solid white;
+    background-color: black;
+  
+}
+.d2{
+    width: 350px;
+    height: 60px;
+    margin-left: 50px;
+    margin-top: 40px;
+    display: flex;
+    gap: 8px;
+ 
+}
+
+.d3{
+    width: 100px;
+    height: 60px;
+    border: 1px solid;
+    box-shadow: inset 50px 60px 0 rgb(255,255,255,0.2);
+}
+.d3:hover{
+    background-color: green;
+}
+.d4{
+    color: white;
+    
+}
+.d4{
+    width:350px;
+    height: 60px;
+    margin-left: 50px;
+    margin-top: 14px;
+   
+}
+.input1{
+    width: 320px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    box-shadow: inset 40px 50px 0 rgb(255,255,255,0.2);
+    color: white;
+}
+.im{
+    float: right;
+    margin-left: 40px;
+
+}
+

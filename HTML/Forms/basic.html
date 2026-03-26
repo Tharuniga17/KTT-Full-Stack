@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        input:valid {
+            border: 1px solid green;
+        }
+
+        input:invalid {
+            border: 1px solid red;
+        }
+
+        .ctn {
+            width: 800px;
+            height: 650px;
+            margin: auto;
+
+        }
+
+        .ctn2 {
+            border: 1px solid black;
+            margin: auto;
+            margin-top: 20px;
+            border: none;
+            box-shadow: 0px 4px 8px rgb(0, 0, 0, 0.8);
+
+        }
+
+        .age {
+            margin-right: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ctn">
+        <div class="ctn2">
+            <form>
+
+                <!-- Name -->
+                <label>Name:</label><br>
+                <input type="text" name="name" minlength="3" maxlength="30" required><br><br>
+
+                <!-- Email -->
+                <label>Email:</label><br>
+                <input type="email" name="email" required><br><br>
+
+                <!-- Age -->
+                <div class="age">
+                    <label>Age:</label><br>
+                    <input type="number" name="age" min="0" max="60" step="1"
+                        oninput="if(this.value < 0) this.value=''"><br><br>
+                </div>
+
+
+                <!-- Phone -->
+                <label>Phone:</label><br>
+                <input type="tel" name="phone" pattern="[7-9][0-9]{9}" title="Enter valid 10-digit number"
+                    required><br><br>
+
+                <!-- Password -->
+                <label>Password:</label><br>
+                <input type="password" id="pass" minlength="6" required oninput="checkPassword()"><br>
+
+                <label>Confirm Password:</label><br>
+                <input type="password" id="cpass" minlength="6" required oninput="checkPassword()"><br>
+
+                <p id="msg"></p>
+
+                <!-- Gender -->
+                <label>Gender:</label><br>
+                <input type="radio" name="gender" value="male" required> Male
+                <input type="radio" name="gender" value="female"> Female<br><br>
+
+                <!-- Skills -->
+                <input type="checkbox" name="dept" value="ECE" checked> ECE
+                <input type="checkbox" name="dept" value="CSE"> CSE<br><br>
+
+                <!-- Department -->
+                <select name="department">
+                    <optgroup label="Non-Circuit">
+                        <option value="cse">CSE</option>
+                        <option value="it">IT</option>
+                    </optgroup>
+                    <optgroup label="Circuit">
+                        <option value="ece">ECE</option>
+                        <option value="eee">EEE</option>
+                    </optgroup>
+                </select><br><br>
+
+                <!-- Date -->
+                <label>Date:</label>
+                <input type="date" name="date" max="2026-03-19"><br><br>
+
+                <!-- Range -->
+                <input type="range" min="0" max="10" oninput="output.value = this.value">
+                <output id="output">0</output><br><br>
+
+                <!-- File Upload -->
+                <input type="file" accept=".pdf" onchange="if(this.files[0].size > 1024){
+    this.setCustomValidity('too large');
+}
+else{
+    this.setCustomValidity(''); 
+}" /><br><br>
+
+                <!-- Textarea -->
+                <textarea name="message" maxlength="100" required placeholder="Enter message"></textarea><br><br>
+
+                <!-- Datalist -->
+                <label>Browser:</label>
+                <input list="browsers" name="browser">
+                <datalist id="browsers">
+                    <option value="Chrome">
+                    <option value="Firefox">
+                    <option value="Edge">
+                </datalist><br><br>
+
+
+                <!-- Submit -->
+                <input type="submit">
+
+            </form>
+
+            <script>
+                let p = document.getElementById("pass");
+                let cp = document.getElementById("cpass");
+                let msg = document.getElementById("msg");
+
+                function checkPassword() {
+                    if (p.value === cp.value) {
+                        msg.style.color = "green";
+                        msg.textContent = "Password match";
+                    } else {
+                        msg.style.color = "red";
+                        msg.textContent = "Password does not match";
+                    }
+                }
+            </script>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
