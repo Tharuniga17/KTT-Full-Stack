@@ -1,0 +1,10 @@
+OBJECTS:
+Objects  is a collection of similar data types and the values will be stored as key-value pairs , everything will be represented as object.
+
+
+Prototypes mean it stores the shared knowledge of functions,properties and methods, it is like a hidden object that js will automatically create
+if the property is not found, it would check the object , if not there means it would check the prototype , it acts like a back up
+
+_proto_ it will be present in every object it will links to the parent object which is prototype(it will search and return the property)
+
+Object -> car._proto_ -> car.prototype -> null
