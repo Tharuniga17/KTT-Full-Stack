@@ -159,9 +159,128 @@ console.log(average(1,2,3,4))
 
 let nums = [1,2,3,4];
 console.log(...nums);
+console.clear()
+
+// // let age = prompt("Enter ur age");
+// // age = Number(age)
+// let result = (age >= 18) ? "Eligible" : "not eligible";
+// console.log(result);
 
 
-let age = prompt("Enter ur age");
-age = Number(age)
-let result = (age >= 18) ? "Eligible" : "not eligible";
-console.log(result);
+str = "Tharun";
+console.log(str.toUpperCase());
+
+let number = 123.456;
+console.log(number.toFixed(2));
+
+char = "Hello World";
+console.log(char.includes("World"));
+
+let bool = Boolean("")
+console.log(bool)
+
+num = 12345;
+console.log(Number(num.toString().split("").reverse().join("")));
+
+//maximum
+num = [3,45,7,89,12]
+console.log(Math.max(...num));
+
+//minimum
+num = [3,45,7,89,12];
+console.log(Math.min(...num))
+
+//nearest integer
+num = 5.6789
+console.log(Math.ceil(num));
+
+//random number
+random = Math.floor(Math.random() * 100) + 1;
+console.log(random);
+
+str = "1234"
+console.log(Number(str));
+
+//check prime number
+function prime(num){
+    if(num <= 1){
+        return false;
+    }
+    else if(num == 2){
+        return true;
+    }
+    for(let i = 2;i <= Math.sqrt(num);i++){
+        if(num % i == 0){
+            return false;
+        }
+    }
+    return true;
+}
+num = 3;
+if(prime(num)){
+    console.log("Prime");
+}
+else{
+    console.log("not prime");
+}
+
+//string
+str = "konguengineeringcollege";
+console.log(str.length);
+console.log(str.slice(0,5));
+console.log(str.replace("kongu","bannari"));
+arr = "Apple,Banana,Mango";
+console.log(arr.split(","));
+
+str = "aeiouAEIOU";
+newstr = "world"
+count = 0
+for(let i= 0;i<newstr.length;i++){
+    if(str.includes(newstr[i])){
+        count+=1;
+    }
+}
+console.log(count)
+
+arr = [1,2,3,4,5]
+console.log(arr[arr.length - 1]);
+arr.unshift(10)
+console.log(arr);
+arr.shift();
+console.log(arr)
+arr.shift();
+console.log(arr)
+
+arr = [1,2,3,4]
+newarr = arr.map( i => i*2);
+console.log(newarr);
+
+arr = [5,2,4,3]
+newarr = arr.filter(i => i > 3);
+console.log(newarr);
+
+arr = [2,4,6,8]
+newarr = arr.reduce((a,b) => a+b,0);
+console.log(newarr);
+
+arr = [10,2,33]
+arr.sort((a,b)=> b-a);
+console.log(arr)
+
+console.log(+"123");
+
+console.log(-"123");
+
+college = ["A","B","C","D"]
+console.log(college.splice(1,2)); 
+let arra = ["one","two","three"];
+console.log(arra.join(","));
+
+arr = [1,2,3,4,5]
+arr.copyWithin(3,0,2);
+console.log(arr);
+
+
+fruits = ["A","B","C","D"];
+fruits.copyWithin(0,1);
+console.log(fruits);
