@@ -96,17 +96,17 @@ for (let key in userprofile) {
 // Object.keys()
 console.log(Object.keys(userprofile));
 console.log(Object.values(userprofile));
-Object.entries(userprofile).forEach(([key,value]) => {  // it shows key value pairs
+Object.entries(userprofile).forEach(([key, value]) => {  // it shows key value pairs
     console.log(`${key} - ${value}`);
 })
 
 //getters and setters method 
 let obj = {
     val: 20,
-    get double(){
+    get double() {
         return this.val * 2;
     },
-    set update(newval){
+    set update(newval) {
         this.val = newval
     }
 }
@@ -118,13 +118,13 @@ console.log("-------------")
 
 //shallow copy   
 let student1 = {
-    name : "Tharun",
-    age : 25,
-    marks :{
-        maths : 80,
+    name: "Tharun",
+    age: 25,
+    marks: {
+        maths: 80,
     }
 }
-const student2 = {...student1};
+const student2 = { ...student1 };
 student2.marks.maths = "70";
 console.log(student1.marks.maths); // here both student1 and 2 points to the same memory location so changing one will affect both.
 student2.age = 40;
@@ -133,10 +133,10 @@ console.log("------------");
 
 //deep copy
 let student3 = {
-    name : "Tharun",
-    age : 25,
-    marks :{
-        maths : 80,
+    name: "Tharun",
+    age: 25,
+    marks: {
+        maths: 80,
     }
 }
 const student4 = structuredClone(student3); // it will create different copy dont save in same memory location for that we use structuredclone which is a js builtin function.
@@ -146,8 +146,8 @@ console.log(student3.marks.maths);
 /* Garbage collection is automatic process that cleans unused memory, if something is not used , js will cleans up memory by removing it */
 
 let user = {
-    name : "Tharun",
-    sayhi(){
+    name: "Tharun",
+    sayhi() {
         console.log(this.name);
     }
 }
@@ -155,7 +155,7 @@ user.sayhi();
 
 //constructor 
 // it is just a function used to create objects.
-function Use(name){
+function Use(name) {
     this.name = name;
 }
 let user1 = new Use("Tharun");
@@ -165,7 +165,7 @@ console.log(user2.name);
 
 //OBJECT CHAINING(?.)  it checks if this exits, if yes -> continues, if not -> stop without error
 let Student = {
-    name : "Tharun",
+    name: "Tharun",
 }
 console.log(Student?.address?.marks);
 //property access obj?.property, obj?.[key]
@@ -173,8 +173,8 @@ console.log(Student?.address?.marks);
 //Symbol 
 let id = Symbol("id")
 let chef = {
-    [id] : 123, //it will assign the unique value, acts like a unique key
-    id : 23,
+    [id]: 123, //it will assign the unique value, acts like a unique key
+    id: 23,
 };
 
 console.log(chef.id);
@@ -183,29 +183,27 @@ console.log(chef[id]);
 //object->primitive conversion 
 //sometimes javascript forces an object to behave like a number or string because of +,-,alert
 let user5 = {
-    name : "Ammu",
-    money : 1000,
+    name: "Ammu",
+    money: 1000,
 
-    toString(){
+    toString() {
         return this.name;
     },
-    valueOf(){
+    valueOf() {
         return this.money;
     }
 };
-alert(user5);
 console.log(user5 + 500);
 
 //modern way 
 let user6 = {
-    name :"Suguna",
-    money : 50,
-    [Symbol.toPrimitive](hint){ // converts object to primitive value, hint tells what type of value javascript wants
-        if(hint == "string"){
+    name: "Suguna",
+    money: 50,
+    [Symbol.toPrimitive](hint) { // converts object to primitive value, hint tells what type of value javascript wants
+        if (hint == "string") {
             return this.name;
         }
         return this.money;
     }
 }
-alert(user6);
-console.log(user6+50);
+console.log(user6 + 50);

@@ -239,11 +239,6 @@ user = JSON.parse(json,(key,value) => {
 });
 console.log(user);
 
-//JSON.rawJSON() - it would treat the string as already valid JSON 
-
-raw = JSON.isRawJSON({x:10});
-console.log(raw); //this can be used when u want to inject json directly into json structure
-//it shows error because it is not in standard js
 
 const room = {
     name : "217",
@@ -259,12 +254,7 @@ console.log(jsonstr);
 //everything will happen using string only
 
 //we use parse to convert the string into object only after receiving the data and use it in our system
-const room1 = {
-    number : 23,
-    toJSON() {return this.number;}
-};
-const meetup2 = {title :"conference",room1};
-console.log(JSON.stringify(meetup2));
+
 //here whenever we call JSON.stringify() it would automatically checks whethe the object have toJSON() method
 //if it presents that uses that methods return value instead of the object
 

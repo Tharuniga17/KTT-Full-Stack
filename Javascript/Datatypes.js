@@ -68,7 +68,6 @@ console.log(number.toExponential(2))
 console.log(Number.isInteger(number));
 console.log(Number.isNaN(number));
 console.log(Number.isFinite(number));
-
 console.log(Number("123"));
 console.log(Number("abc"));
 console.log(Number(true));

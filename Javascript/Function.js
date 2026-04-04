@@ -18,7 +18,6 @@ function updatecar(c){
 updatecar(car)
 console.log(car.make) // pass by reference means when u pass an object values into a function , it wont create an copy instead it would save in the same memory location
 // so both properties will point to the same memory location, so original will be changed.
-console.clear();
 
 //---Example with Array
 
