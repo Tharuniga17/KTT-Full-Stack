@@ -1,39 +1,38 @@
-// function add(a = 0,b = 0){
-//     return a+b;
+function add(a = 0,b = 0){
+    return a+b;
+}
+console.log(add());
+
+// alert("Hello world")
+// let age = prompt("Enter ur age");
+// if(age >= 18){
+//     alert("Eligible for voting")
 // }
-// console.log(add());
-
-// // alert("Hello world")
-// // let age = prompt("Enter ur age");
-// // if(age >= 18){
-// //     alert("Eligible for voting")
-// // }
 
 
 
-// str = "123";
-// console.log(Number(str));
+str = "123";
+console.log(Number(str));
 
-// console.log("123" + 45);
+console.log("123" + 45);
 
-// console.log(Number(null));
+console.log(Number(null));
 
-// console.log(Number(undefined))
+console.log(Number(undefined))
 
-// //falsy values - 0,"",false,null,NaN,undefined ->these will provide false
+//falsy values - 0,"",false,null,NaN,undefined ->these will provide false
 
-// num = "123";
-// newnum = Number(num);
-// console.log(typeof newnum)
+num = "123";
+newnum = Number(num);
+console.log(typeof newnum)
 
-// console.log("5" - 3);
+console.log("5" - 3);
 
 
 
-  const button = document.getElementById("myBtn");
-  button.addEventListener("click", () => {
-      alert("Button clicked!");
-  });
+
+  let a = 10;
+  console.log(window.a);
 
 
 

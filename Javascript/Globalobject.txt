@@ -1,0 +1,10 @@
+Global object - it is a big container that holds everything that is available everywhere
+exmple -> window is a global object , it represents all global things like alert, console,document,setTimeout()
+
+var a = 10;
+console.log(window.a); this will run because var is a global object
+since var is a global variable , it will get stored in window object, let will be stored in lexical environment
+
+
+//function can also act as an object 
+call() is used to call a function immediately, when you pass arguments one by one

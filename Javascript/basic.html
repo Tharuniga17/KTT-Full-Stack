@@ -15,10 +15,32 @@
   <title>Click Event Example</title>
 </head>
 <body>
+    <div id="popup">Hello! i will disappear soon.</div>
     <button id="myBtn">Click Me!</button>
-    <script src="Practice.js">
+    <h1 id="counter">0</h1>
+    <script>
+        // let count = 0;
+        // const counterelement = document.getElementById("counter");
+        // let interval = setInterval(()=>{
+        //     count++;
+        //     counterelement.textContent = count;
+        //     if(count >= 10){
+        //         clearInterval(interval);
+        //         console.log("stopped");
+        //     }
+        // },1000)
+        // setTimeout(()=>{
+        //     clearInterval(interval);
+        //     console.log("Stopped");
+        // },6000);
+
+        const popup = document.getElementById('popup');
+        console.log(popup.textContent);
+        setTimeout(()=> popup.style.display = 'none', 2000);
+
     
-</script>
+        
+    </script>
 
 
 
