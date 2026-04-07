@@ -183,3 +183,58 @@ greet.apply(person, [21]);
 let sum = new Function('a', 'b', 'return a + b');
 
 console.log(sum(2, 3)); // 5
+
+//every function willhas a .name property 
+greet = function(){};
+console.log(greet.name);
+
+//object methods will get the names too
+
+user = {
+    hello(){},
+    bye:function(){}
+};
+console.log(user.hello.name);
+console.log(user.bye.name)
+
+//function length property
+//.length counts declared parameters,it will not include rest parameter
+function a(x){}
+function b(x,y){}
+function c(x,y,...rest){}
+
+console.log(a.length);
+console.log(b.length);
+console.log(c.length);
+
+
+//normal function expression
+// sayHi = function(name){
+//     alert(`Hello, ${name}`);
+// };
+// temp = sayHi;
+// sayHi = null;
+// sayHi("Tharun");
+
+// sayHi = function func(name){
+//     alert(`hello, ${name}`);
+// };
+// temp = sayHi;
+// sayHi = null;
+// sayHi("Tharun");
+
+//decorator -> is a wrapper function, it will take function as input , and it will add behaviour to it and will return a new function
+
+
+function outer() {
+    var x = 10;
+
+    function inner() {
+        console.log(x);
+    }
+
+    return inner;
+}
+
+const fn = outer();
+fn();  // prints
