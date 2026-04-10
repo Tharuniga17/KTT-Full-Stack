@@ -8,3 +8,11 @@ if the property is not found, it would check the object , if not there means it 
 _proto_ it will be present in every object it will links to the parent object which is prototype(it will search and return the property)
 
 Object -> car._proto_ -> car.prototype -> null
+
+//ninja code means writing short form, using advanced techniques,destructuring, arrow functions, ternary operator,rest parameters,spread operators
+
+
+//prototype is a property of a function, when we use new, javascript links the created objects[[prototype]] to tha functions prototype
+
+//__proto__ used by objects to link to the prototype
+it is the place where common things are shared

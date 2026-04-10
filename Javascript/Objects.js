@@ -206,4 +206,5 @@ let user6 = {
         return this.money;
     }
 }
+alert(user6);
 console.log(user6 + 50);

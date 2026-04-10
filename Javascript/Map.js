@@ -100,11 +100,11 @@ console.log(grouped)
 
 
 //getOrInsert means if the value for the key present means it will return otherwise it will return the defualt value like 0 
-// map = new Map()
-// map.set("Apple",10);
-// map.getOrInsert("Banana",0);
-// map.getOrInsert("Apple",0);
-// console.log(map);
+map = new Map()
+map.set("Apple",10);
+map.getOrInsert("Banana",0);
+map.getOrInsert("Apple",0);
+console.log(map);
 
 //weakMap/weakset  => memory-safe storage for objects => it have weak reference
 //map will have strong reference even if we put  null the user wont be removed completely but in weak map it will be removed completely 
