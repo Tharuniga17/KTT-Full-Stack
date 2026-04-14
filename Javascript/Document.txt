@@ -1,0 +1,1 @@
+document is a javascript object which represents the entire html page

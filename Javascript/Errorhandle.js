@@ -95,3 +95,71 @@ try{
 }catch(err){
     console.log("Handles:",err.message);
 }
+
+
+// let age = "twenty";
+// if(typeof age !== "number"){
+//     throw new TypeError("Age must be number");
+// }
+
+//finally -> code that always runs, whether error happens or not, it will run
+try{
+    console.log("try");
+}catch{
+    console.log("catch");
+}finally{
+    console.log("finally");
+}
+
+try{
+    console.log("try");
+    x;
+}catch{
+    console.log("catch");
+}finally{
+    console.log("finally")
+}
+//finally is used for cleanup / closing/ finishing work
+//close databse connection, stop timer, release memory
+
+loading = true;
+try{
+    console.log("Fetching data");
+    throw new Error("API failed");
+}catch{
+    console.log("error occured");
+}
+finally{
+    loading = false;
+    console.log("loading stopeed");
+}
+
+function test(){
+    try{
+        return "try return";
+    }finally{
+        console.log("finally runs");
+    }
+}
+console.log(test());
+
+// window.onerror = function(message,url,line,col,error){
+//     console.log(`Error: ${message}`);
+// }
+// function test(){
+//     badFunction();
+// }
+// test();
+
+class validationError extends Error{
+    constructor(message){
+        this.message = message;
+    }
+}
+
+function signup(email){
+    if(!email.includes("@")){
+        throw new ValidationError("Invalid email format");
+    }    
+}
+
