@@ -1,1 +1,79 @@
-document is a javascript object which represents the entire html page
+document is a javascript object which represents the entire html page loaded in the browser.
+everything will be in tree like structure , and in the document model, we use document becuase we can change content, updates ui , handle user clicks easily
+
+it is a part of DOM
+dom converts the html into tree like structure => because it will modify elements easily and add or remove nodes,
+like document.body.children
+
+
+document.title 
+console.log(document.title)
+document.title = "New Titlte"
+
+document.body
+document.style.body.backgroundColor = "Lightblue"
+
+document.url -> for getting current page url
+
+document.domain => for getting domain name
+
+document.head => only head
+
+for traversing,
+el = document.getElementById("title")
+
+parent = el.parentElement; go to parent
+
+sibling = el.nextElementSibling; go to sibling
+
+first = parent.firstElementChild; go to first child of parent
+
+
+javascript not read raw html , it only interacts with document object
+
+Browser environment is where javascript runs  inside a web browser, js is just a language, but it needs a host to run.
+browser api => provided by browser to control html, using document object
+
+BOM -> Browser Object Model
+it will controls the browser itself , not the page everything will be outside the webpage
+
+Window is the main global object in the browser, where everything belongs to window
+global variables are also a part of window
+
+Location => can change or get the current url
+location.href
+location.href = "https://google.com"
+location.reload(); it will load the page
+
+Navigator -> it will give information about users browser and device
+navigator.userAgent
+navigator.onLine
+navigator.language
+
+history (navigation control) => controls browser back and forward navigation
+history.back
+history.forward
+for specific history.go(-2)
+
+
+window
+ ├── document (DOM)
+ ├── location
+ ├── navigator
+ ├── history    this is how everything will be connected
+
+only var can create properties on the window object
+
+CSSOM => css converted into a tree of objects, like dom
+
+everything in html becomes an object(node)
+Document Node -> document
+
+Element Nodes(tags) -> element node
+
+Text node -> inside elements
+
+comment nodes -> exist but it will not visible
+
+Walking the dom -> moving between nodes in the dom tree like go to children, go to parent, go to siblings
+

@@ -1,48 +1,26 @@
-<!-- <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <h1>Hello world</h1>
-</head>
-<body>
-    <script src="Objects.js"></script>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Click Event Example</title>
+  <title>DOM Practice</title>
 </head>
 <body>
-    <div id="popup">Hello! i will disappear soon.</div>
-    <button id="myBtn">Click Me!</button>
-    <h1 id="counter">0</h1>
-    <script src="Objects.js">
-        // let count = 0;
-        // const counterelement = document.getElementById("counter");
-        // let interval = setInterval(()=>{
-        //     count++;
-        //     counterelement.textContent = count;
-        //     if(count >= 10){
-        //         clearInterval(interval);
-        //         console.log("stopped");
-        //     }
-        // },1000)
-        // setTimeout(()=>{
-        //     clearInterval(interval);
-        //     console.log("Stopped");
-        // },6000);
 
-        const popup = document.getElementById('popup');
-        console.log(popup.textContent);
-        setTimeout(()=> popup.style.display = 'none', 2000);
+  <h1 id="title">Welcome <br>Onboard</br></h1>
 
-    
-        
-    </script>
+  <div class="container">
+    <p class="text">Paragraph 1</p>
+    <p class="text">Paragraph 2</p>
+    <button id="btn">Click Me</button>
+  </div>
 
+  <ul id="list">
+    <li class="item">Item A</li>
+    <li class="item">Item B</li>
+  </ul>
+  <input type="text" placeholder="Enter name" id="name"/>
+  <h3 id="box">Hello</h3>
+  <input type="text" id="name" />
 
-
+  <script src="script1.js"></script>
 </body>
 </html>
