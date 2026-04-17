@@ -1,39 +1,42 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+  <style>
+    #box {
+      width: 100px;
+      height: 100px;
+      background: teal;
+      position: absolute;
+      top: 100px;
+      left: 100px;
+      cursor: grab;
+    }
+  </style>
 </head>
 <body>
-    <h2>Calculator</h2>
-    <input type="text" placeholder="first number" id="num1"/><br><br>
-    <input type="text" placeholder="second number" id="num2" /><br><br>
-    <button onclick="press('+')">Add</button>
-    <button onclick="press('-')">Sub</button>
-    <button onclick="press('*')">Mul</button>
-    <button onclick="press('/')">Div</button>
-    <h3 id="result"></h3>
-    <script>
-        
-        function press(res){
-            let a = Number(document.getElementById("num1").value)
-            let b = Number(document.getElementById("num2").value)
-            let result;
-            if(res === "+"){
-                result = a + b
-            }
-            else if(res === "-"){
-                result = a - b
-            }
-            else if (res === "*"){
-                result = a*b 
-            }
-            else{
-                result = a/b
-            }
-            document.getElementById("result").innerText = "Result:" + result;
-        }
-    </script>
+
+<div id="box"></div>
+
+<script>
+let box = document.getElementById("box");
+
+let shiftX, shiftY;
+
+box.onmousedown = function (e) {
+  shiftX = e.clientX - box.offsetLeft; //here only dragging will start
+  shiftY = e.clientY - box.offsetTop;
+
+  document.onmousemove = function (e) {  //here the mouse moves
+    box.style.left = e.pageX - shiftX + "px";
+    box.style.top = e.pageY - shiftY + "px";
+  };
+
+  document.onmouseup = function () {  //here the dragging stops
+    document.onmousemove = null;
+    document.onmouseup = null;
+  };
+};
+</script>
+
 </body>
 </html>

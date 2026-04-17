@@ -175,9 +175,9 @@ async function f(){
     data = await user.json();
 }  //multiple awaits runs step by step like normal code
 
-a = fetch(url1);
-b = fetch(url2);
-[res1,res2] = await Promise.all([a,b]);
+// a = fetch(url1);
+// b = fetch(url2);
+// [res1,res2] = await Promise.all([a,b]);
 
 //imagine building a big app, which have login logic,shopping cart and payment, if everything is in one file, it would be messy, hard to maintain and debug
 // so we split it into modules(multiples files)

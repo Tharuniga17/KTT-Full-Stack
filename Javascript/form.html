@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Demo</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, select, textarea { display: block; margin: 10px 0; padding: 8px; }
+    .error { border: 2px solid red; }
+    .success { border: 2px solid green; }
+  </style>
+</head>
+
+<body>
+
+<form name="myForm" id="myForm">
+
+  <!-- Text -->
+  <input type="text" name="username" placeholder="Enter name">
+
+  <!-- Email -->
+  <input type="email" name="email" placeholder="Enter email">
+
+  <!-- Password -->
+  <input type="password" name="password" placeholder="Enter password">
+
+  <!-- Radio -->
+  Gender:
+  <input type="radio" name="gender" value="male"> Male
+  <input type="radio" name="gender" value="female"> Female
+
+  <!-- Checkbox -->
+  <input type="checkbox" name="agree"> I Agree
+
+  <!-- Select -->
+  <select name="course">
+    <option value="js">JavaScript</option>
+    <option value="java">Java</option>
+  </select>
+
+  <!-- Multi Select -->
+  <select name="skills" multiple>
+    <option value="html" selected>HTML</option>
+    <option value="css">CSS</option>
+    <option value="js" selected>JS</option>
+  </select>
+
+  <!-- Textarea -->
+  <textarea name="message" placeholder="Your message"></textarea>
+
+  <button type="submit">Submit</button>
+</form>
+
+<h3 id="output"></h3>
+
+<script src="form.js"></script>
+</body>
+</html>
