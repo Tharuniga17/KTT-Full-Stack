@@ -1,0 +1,190 @@
+fetch() is used to send request to server and to get data , instead of reloading page, we do backgorund request
+fetch(url, options)
+
+fetch("https://jsonplaceholder.typicode.com/users")
+
+first we need to call fetch
+response = await fetch(url)
+
+ sending request to server
+sends http request to server and will return a promise 
+
+once we send request , we only get status, headers, and body 
+here body comes as a stream means it just give response early for performance
+
+next read the body 
+
+data = await response.json();  -> here it will read the full stream converts the json to javascript object
+
+let response = await fetch(url);  // request sent => wait for response
+let data = await response.json(); // body read => wait for actual data 
+
+console.log(data);
+
+
+Response object, 
+
+ways to read data 
+response.json()        // JSON (MOST USED)
+response.text()        // string
+response.blob()        // image/file
+response.formData()    // form data
+response.arrayBuffer() // low - level binary
+
+response = await fetch(url) here we get an response object which contains about server reply,, not the actual data 
+
+response.status  => 200- success 
+                    404 - not found
+                    500 - Server error
+
+response.headers => content type
+                    server info
+                    caching
+
+response.json() => converts json to javascript object
+
+response.text() => if response is plain text 
+
+response.blob() => used for images/files
+
+when ur js do, fetch("https://example.com/data")
+your browser says hey server , give me data  => called http request 
+
+our page -> https://site.com
+when u call -> https://site.com/api
+both are same origin -> eveything allowed 
+
+if our page ->https://siteA.com
+when u call -> https://siteB.com/api
+Different origin -> browser becomes strict 
+
+Browser blocks the different origins because of security 
+
+CORS is like a security guard , if u want to access another website , but the browser will have security road
+if both website are different , it wont allow
+
+It will ask permission like Access-Control-Allow-Origin: * -> it shows browser allows anyone to read 
+
+Access-Control-Allow-Origin: yoursite.com -> it only allow this website 
+
+in fetch, it will send data and gets response, but browser will check for permission
+even if server sends data , browser will says like i will not give this data to javascript
+so failed to fetch 
+
+if permission exists browser can read data 
+
+when your website tries to get data from another website the browser will ask the server whether the website is safe or not, this check is called CORS
+
+Fetch api => fetch() is a built in javascript function used to send network requests like getting or sending data to a server
+
+
+
+
+URL => uniform resource locator 
+https://google.com/search?q=js
+protocol -> https: , domain -> google.com ,path -> /search, query -> ?q=js
+
+URL object 
+url = new URL("https://google.com/search");-> js understand it as structured object 
+
+url = new URL(")
+
+for concarenating in url , we wont do like 
+url = "https://google.com/search?q=" + "java script";
+
+instead we do like url = new url("https://google.com/search")
+
+then add query like
+
+url.searchParams.set("q","Javascript");
+
+convert back to string
+url.toString();
+
+https://google.com/search?q=javascript
+
+search is used to add multiple parameters
+
+for removing paramter
+
+url.searchParams.delete("q");
+
+url.searchParams.get("q");
+
+
+Looping through all the paramters
+
+for (let [key, value] of url.searchParams) {
+  console.log(key, value);
+}
+
+append(name, value) – add the parameter by name,
+delete(name) – remove the parameter by name,
+get(name) – get the parameter by name,
+getAll(name) – get all parameters with the same name (that’s possible, e.g. ?user=John&user=Pete),
+has(name) – check for the existence of the parameter by name,
+set(name, value) – set/replace the parameter,
+sort() – sort parameters by name, rarely needed,
+
+
+XMLHttpRequest is a browser built in object used to send http requests, and get data from server, for uploading files and track/ download progress
+before fetch() exist, xhr was the main way to talk to servers
+
+xhr = new XMLHttpRequest();
+xhr.open("GET", "https://api.com/data");  configuring request
+
+send request -> xhr.send();
+
+events in xhr looks like,
+
+load success
+xhr.onload = () =>{
+    console.log("Done");
+}
+
+xhr.onerror = () =>{
+    console.log("Network error");
+}
+
+xhr.onprogress = (event) =>{
+    console.log(event.loaded);
+}
+
+for aporting we use xhr.abort(); stops request 
+
+REsumable file upload => if a file upload stops in the middle due to internet issue or something, you can continue 
+from where it stopped instead of starting again 
+
+if u upload a 500 mb file, 50 % uploaded, internet breaks, then resumable upload solution continues from last saved point
+
+it will split file into chunks instead of sending full file at once
+File = 100 MB
+
+Chunk 1 → 0–10 MB
+Chunk 2 → 10–20 MB
+Chunk 3 → 20–30 MB
+...
+
+first split file into chunks -> chunksize = 2 * 1024 * 1024
+and then send each chunk and then track progress
+
+if upload stops , server remembers last position
+
+when user comes back and will ask the server
+GET /upload-status
+server replies with uploaded : 6MB
+and it will continue from there
+
+Long Polling:
+instead of asking the server of asking data, it tells give me when you have something
+normal polling -> we need send requests for every 5s
+in long polling -> one request stays open until data is ready
+
+
+Websocket => it is a permanent connection between browser and server
+no repeated requests, no waiting like long polling, they can talk anytime
+
+once connection opened, stays open , dont need to send request again
+it uses websocket handshake, it is the process of upgrading a normal http connection into a websocked connection
+
+Client sends HTTP request -> Server checks request If server supports WebSocket → accepts -> Connection becomes WebSocket(full duplex)
