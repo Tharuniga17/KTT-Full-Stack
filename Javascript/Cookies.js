@@ -95,6 +95,76 @@ from {left : 0}
 to {left : 200px}
 }
 
+.box{
+animation : move 2s infinite alternate
+};
+
+Animation Properties:
+
+animation-name	
+animation-duration	
+animation-iteration-count	
+animation-direction	
+animation-delay
+
+
+Javascript animations:
+Changing values(like position, size,opacity) frame by frame over time
+
+setInterval -> run code for every interval
+there are many problems will occur in setInterval
+
+so we move to requestAnimationFrame 
+Browser decides the best time to run animation 
+
+requestAnimationFrame(callback);
+
+setInterval - Runs blindly every X ms
+requestAnimationFrame - Runs when browser is ready
+
+Custom elements let u create own html tags
+<my-card></my-card> this can be reused later, encapsulate html elements using javascript, forming the foundation of web componenets
+
+Instead of creating own html tags, like <div>,<p>,<button> we can create it <my-card>,<user-profile>,<event-item> like this
+
+Shadow DOM => it is the hidden dom inside an element , it lets a component have its own html, own css, isolated from main page
+<p>Hello</p> if i change color to red, it will change everywhere
+
+but by using shadow dom , it stays only inside the component
+
+shadow dom is the private dom inside an element which is hidden and isolated 
+
+shadow dom -> protects the component
+template is used for storing the component design
+
+i want to store html but not show it immediately , not visible on screen, css not applied, js inside not executed, stored safely
+
+template will store UI design -> attachShadow() will create private dom (this component will have its own world) -> clone template (if we clone it we can use that multiple times or multiple cards) 
+next add data because template is static, we make it dynamic by adding data -> same design , different data -> and then insert into shadow dom
+
+slots allow a component to accept and display content from outside to inside its shadow dom
+Light dom -> outside 
+<user-card>
+    <span slot = "username">Tharun</span> -> shadow dom it is the inside component
+<user-card>
+
+slot is used inside a component to show external content
+
+
+:host -> used to style the custom element
+
+:host(selector) -> conditional styling
+apply style only if condition matches
+
+:host([centered]){
+background : blue;
+}
+<custom-dialog centered></custom-dialog>
+
+event.composedPath()
+it gives full path of event like this [span, slot, div, shadow-root, user-card, body, html...]
+
+
 */
 
 

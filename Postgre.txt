@@ -1,0 +1,67 @@
+Postgre is a powerful relational database management system, here we can handle unstructured data by allowing you to store it in a json column. 
+
+sometimes data will be flexible so instead of creating many columns we store it in one column 
+
+employee_data(json/jsonb)
+
+json --> stored as text , jsonb --> stored in binary(so faster)
+
+mostly we use jsonb
+
+Operators ->(returns json)
+
+select employee_data -> 'name' from employee
+
+->> (return text)
+
+select employee_data ->> 'name' from employee;
+
+Basic :
+
+select params ->> 'name' from events;
+
+select * from events where params ->> 'name' = 'Click Button';
+
+for accessing array:
+
+select params -> 'ids' -> 0 FROM events;
+
+we gets first element only
+
+nested json:
+
+select * from users where (preferences ->> 'beta')::Boolean is true; 
+
+convert text to Boolean 
+
+Contains(@>) --> it acts like includes
+
+select * from  employees where employee_data -> 'skills' @> '["Sales"]';
+
+it will check whether the array contains Sales
+
+Path operators --> #> JSON path, #>> JSON path --> text 
+
+SELECT employee_data #>> '{address,city}' FROM employees;
+
+json is case sensitive so we should not write like this Name use like this 'name'
+
+json queries are slow without indexing so 
+
+CREATE INDEX idx ON employees USING GIN (employee_data);
+
+Updating json:
+
+update employees set employee_data = jsonb(employee_data,'{name}','"Kumar"')
+where id = 1;
+
+adding new key --> update employees set employee_data = employee_data || '{"age" : 25}'
+
+For removing key :
+
+update employees set employee_data = employee_data - 'age';
+
+for converting json arrays into rows
+
+select jsonb_array_elements(employee_data > 'skills') from employees;
+

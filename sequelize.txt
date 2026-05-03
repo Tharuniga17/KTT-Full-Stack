@@ -1,0 +1,102 @@
+Authentication --> it defines login like who are you
+authorization --> it defines what you access 
+
+login with out email and password are authentication 
+access admin dashboard --> authorization
+
+JWT(JSON web token) --> it is used to securely send user data between client and server
+it uses token for that , token is like a proof that you are logged in 
+
+it is like movie ticket
+
+if you login then it will checks the database and it will give token
+but if you need to login again means , instead of checking the database again, it will check the token
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzc3NTMwODcxLCJleHAiOjE3Nzc1MzQ0NzF9.rCA9E6UuOUlnGzSG3RvM3Lp96sZKLzgC37ESfVOZTwQ
+
+
+Passport.js
+
+it is a middleware for nodejs which will helps you to handle login / auth easily 
+it will check who the user is before allowing access
+
+instead of writing code manually we can make use of it using some strategies
+
+CSRF: --> cross site request forgery
+
+if we logged into an website the server not remembers quickly, it will be stored in the browser as cookies
+
+when u log into bank.com --> server will gives your browser a cookie 
+
+if one website send request to another website,  it will be a fake request using your login session 
+
+to protect that user add extra checks 
+
+csrf --> here the server gives a secret random code 
+
+if token matches allow if not reject it
+
+XSS --> Cross Site Scripting --> where the attackers puts JavaScript code into a website and the browser runs it 
+
+Normal user:
+Hello everyone
+
+Website shows:
+
+Hello everyone
+
+Attacker user:
+<script>alert("Hacked")</script>
+
+here browser will execute the code and it shows to everyone
+
+types includes stored xss -> script stored in database, everyone sees it
+reflected XSS --> script comes from url  runs instantly
+DOM XSS --> Frontend javascipt mistake, will run in browser immediately
+
+to avoid that dont use raw html, use text safe output, security middleware like helmet, xss-clean 
+
+xss -> attackers makes browser run their javascript
+
+SQL Injection --> sometimes attackers put sql code into input to break or manipulate database queries like this
+
+const query = "SELECT * FROM users WHERE email = '" + email + "' AND password = '" + password + "'";
+
+here the attackers may use,
+
+SELECT * FROM users WHERE email = '' OR 1=1 --' AND password = 'anything';
+
+here OR 1 = 1 means always true --> database returns all users 
+
+-- -> comments out rest of query  it works because sql query built being using string concatenation 
+
+types of sql injection:
+login bypass --> skip authentication 
+
+data extraction -->steal entire database
+
+Data deletion --> drop tables
+
+to avoid that never use string concatenation , use orm because it automatically escapes input 
+
+
+https: --> http + encrpton (TLS) here data sent between browser and server is encrypted 
+
+without https the passwords are not secure, anyone can read it
+
+even if someone sees they only gets unreadable text 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

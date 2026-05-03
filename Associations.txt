@@ -1,0 +1,192 @@
+sequelize is an orm(object relational mapping) which is a technique allows you u to interact with database using object instead of writing raw queries, you can use javascript instead of sql 
+
+sequelize is a tool that connects Node.js to Sql databases using javascript
+
+for postgre we use npm install sequelize pg pg-hstore
+
+for testing the database connection we use
+
+sequelize.authenticate()
+  .then(() => console.log("DB connected"))
+  .catch(err => console.log(err));
+
+Model --> javascript version of a database table 
+
+const User = sequelize.define("User",{
+name: String,
+email:String
+});
+
+sequelize built-in-methods
+
+user.create({name:"Tharun"});
+user.findAll();
+user.update
+user.destroy
+
+
+Supported Databases:
+MySQL
+PostgreSQL
+SQLite
+MariaDB
+
+Here we define everything as javascript objects(models)
+
+MODEL:
+
+model is like a table in database, we create a table called user which will have id, name, email but here, we create a model called user, which represents that table 
+
+Database	Sequelize
+Table	         Model
+Row	         Record
+Column	         Field
+
+const {DataTypes} = require("sequelize");
+sequelize = require("../config/db");
+//create model
+const user = sequelize.define("user",{
+name:{
+type: DataTypes.STRING,
+allowNull:false
+},
+email:{
+type:DataTypes.STRING,
+allowNull:false
+},
+});
+module.exports = User;
+
+
+Datatypes:
+
+when defining a model, each field = column in database
+
+STRING  --> text 
+INTEGER --> whole number
+FLOAT --> decimal
+Boolean --> true/false
+DATE --> date and time
+TEXT --> long text 
+
+constraints --> rules for our data --> it will control what is allowed and not allowed
+
+allowNull --> prevent empty values
+allowNull : false
+
+unique : true --> no duplicate values
+
+primary key --> main identifier(like id)
+
+autoincrement : true
+
+defaultValue : DataTypes.NOW
+
+sequelize.sync() --> it tells take my models and create matching tables in the database
+
+if we write a model like this const user = sequelize.define("user",{
+name : DataTypes.STRING
+});
+
+if we run sequelize.sync();
+
+it will automatically creates table, 
+
+for creating new table we must delete all data and creates fresh table
+
+sequelize.sync({force : true })
+
+sequelize.sync({alter : true })--> it will update the table structure without deleting data 
+
+Associations:
+
+it is a relationship between tables
+instead of keeping everything in one table, we split data into related tables and connect them , this is called relational database design
+
+one to one(1:1) --> one user -> one profile
+one record in table A is linked to only one record in table b 
+
+user.hasone
+profile.belongsTo --> profile belongs to the user
+
+one to many --> one user --> many tasks
+
+many to many :
+many users --> many roles
+
+user.belongsToMany
+
+one record in a table is linked to many records in another table, it connects internally using foreign key 
+
+
+one user -> many tasks
+one user -> many posts
+one customer -> many orders
+
+here instead of keeping everything in one table, we connect tables properly 
+
+with associations, the data will be clean, easy queries
+
+one-to-many(1:M)
+one student --> many tasks
+
+Student.hasMany(Task)
+Task.belongsTo(Student)
+
+Many-to-One(it is just reverse of one to many)
+
+many tasks --> one student
+
+Task.belongsTo(Student)
+
+Many-to-Many(M:N)
+
+Student.belongsToMany(Course, {through: "StudentCourse"});
+Course.belongsToMany(Student, { through : "StudentCourses });
+
+one student can join many courses as well one course can have many students 
+
+here we cannot connect two tables in this , so we need a third table called Junction table/bridge table
+
+
+EAGER LOADING:
+
+it means fetch related tables data in one query 
+
+const data = await Student.findAll({
+include : Task
+});
+
+sequelize will automatically perform joins
+
+Lazy loading --> it will load data when needed not immediately 
+
+instead of getting everything in one query , we need to fetch main data first and then fetch related data separately
+
+it is an on-demand fetching using getTasks()
+
+
+CRUD Operations in sequelize:
+
+CREATE --> used to add a new record into the database
+
+Model.create()
+
+await User.create({
+name: "Arun",
+email: "arun@gmail.com"
+});
+
+sequelize automatically generates sql like insert into users(name, email) values(...)
+
+
+
+
+
+
+
+
+
+
+
+

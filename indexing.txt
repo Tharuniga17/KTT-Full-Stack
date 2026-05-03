@@ -1,0 +1,328 @@
+Indexing is used in SQL , to speed up the data retrieval, it will create a separate data structure that will store column values with pointers
+
+instead of scanning the entire table it will jump directly to the required data 
+
+without indexing we need to scan entire table 
+
+most databases uses b-tree where the data is sorted , and search is logarithmic and quickly navigate between left and right
+
+Types of indexing:
+
+Primary index -> automatically created on primary key 
+
+id int primary key 
+
+Unique index:
+
+it is also a unique key where no duplicates values are allowed
+
+CREATE UNIQUE INDEX idx_email ON users(email);
+
+composite index: -> it contains multiple unique keys 
+
+Clustered data:
+
+sorts actual table data  --> only one per table 
+
+Non- clustered data: 
+
+separate structure storing pointers --> can have multiple
+
+disadvantage is it takes extra memory, without index it stores only one storage -> just a table data 
+
+with index -> it created an extra structure like a b-tree so it contains both table data and index data 
+
+
+Creating index:
+
+create index idx_name on students(name);  --> here an index is created on the name column using 
+
+for creating with multiple columns --> composite key 
+
+create index idx_name_marks on students(name,marks);
+
+CREATE UNIQUE INDEX idx_email
+ON users(email);
+
+we can verify that by using 
+EXPLAIN SELECT * FROM students WHERE name = 'Chitra';
+
+unique, primary key can be used but it wont allow duplicate values, index allows duplicates--> because many students may have the same name
+
+explain --> it shows how database executes your query
+
+seq scan -> sequential scan database reads row by row , it starts from first row and reads till last
+
+
+CREATE TABLE if not exists students2 (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    marks INT
+);
+
+INSERT INTO students2
+SELECT gs,
+       CASE 
+           WHEN gs % 3 = 0 THEN 'Arun'
+           WHEN gs % 3 = 1 THEN 'Bala'
+           ELSE 'Chitra'
+       END,
+       80
+FROM generate_series(10001,20000) AS gs;
+
+ANALYZE students2;
+
+EXPLAIN SELECT * FROM students2 WHERE name = 'Chitra';
+
+
+here the size is very large so we do index scanning so that fetching will be faster
+
+QUERY OPTIMIZATION:
+
+database has a component called query optimizer  which decides whether we can use seq scan or index scan 
+
+
+index will help optimizer to avoid full table scan , reduce data access and improve search speed 
+
+with index optimization is O(log n)
+
+Optimizer will decide the table size 
+for small table -> seq scan 
+for large table -> index scan 
+
+analyse ---> will help the optimizer to choose the correct plan  
+
+Index on where column :
+
+select * from students where name = 'Arun';
+
+create index idx_name on students(name);
+
+use composite index:
+
+select * from students 
+where name = 'Arun' AND marks = 90;
+
+avoid using functions on indexed column 
+
+
+Transactions:
+
+it is a group of queries which ensures that the data is correct and consistent even if the system crashes
+
+Begin -> it will start a transaction block, the changes are not permanent here 
+
+Commit -> all the changes are permanent --> after commit we cannot undo 
+
+Rollback --> it will cancel everything after begin --> go back to the original state
+
+Savepoint --> it will create a temporary checkpoint, instead of full roleback it will visit the last checkpoint and undo the operations 
+
+Transaction isolation levels data:
+
+read uncommited : --> can see uncommited data , it is a dirty read 
+
+read commited --> can see only commited data , it is safe and widey used 
+
+serializable -> transactions behave like one by one execution 
+
+ACID Properties -> it ensures that our data in database are safe , reliable and consistent 
+
+A -> Atomicity (all or nothing) 
+
+either transaction will happens fully or doesn't happen at all 
+
+if second query fails the money wont lost, here payment either fully succeed or money stays in our account not half done
+
+Consistency --> data remains in a valid state (some rules/ constraints will never break)
+
+marks <= 100 
+
+update students set marks = 150 where id = 1;
+
+here marks should be lesser than 150 so db will rejects it
+
+with consistency data remains correct and rules must be followed
+
+Isolation(no interference)  --> multiple transactions should not disturb each other 
+
+no two users can access at the same time 
+
+with isolation each transaction will work independently 
+
+durability --> once commited , data is permanently stored, even if system crashes 
+
+commit --> data will be stored in disk/log 
+
+without durability --> power goes off, data lost 
+
+with durability --> data stays safe, even after crash 
+
+select transaction isolation level repeatable read;
+
+select transaction isolation level serializable;
+
+Data integrity constraints --> it ensures that data is correct, valid and reliable 
+
+Primary key --> it will uniquely identifies each rows and cannot be null
+
+Foreign key --> it maintains the relationship between the tables , it would link two tables
+
+unique --> no duplicates allowed must be unique
+
+not null --> must have a value , shoulf not be null
+
+check --> will be checking condition
+
+default --> assign default value --> marks int default 0 
+
+Grant and revoke will provide permissions to users;
+
+grant select on students to user1;
+
+grant insert, update on students to user1;
+
+revoke remove permission 
+
+revoke insert on students from user1;
+
+grant all privileges on students to user1;
+
+Principle of least privilege:
+give only the permission when needed --> nothing more
+
+Grant all on students_sec to test_user --> it will be wrong 
+
+grant select on students_sec to test_user --> if user only needs to read, dont give other permissions prevents accidental damage 
+
+instead of giving direct access to users, just give roles so we can add/ remove users easily
+
+dont use weak password -->  create user secure_user with password 'Tharu@i1234'
+
+use revoke to remove unnecessary actions
+
+use constraints for data integrity 
+
+use views for security and which shows only required data 
+
+for giving readonly to user:
+
+create role readonly 
+
+grant select on students_sec to readonly 
+
+
+for query optimization --> use index
+
+since joins are heavy operations -> optimization is critical so we use index on join columns
+
+subqueries are slow instead of that we can use joins
+
+selective projects --> selecting only the required columns instead of all columns, it wont take unnecessary data from the table , it improves performance and security by reducing unwanted data retrieval
+
+
+advanced sql --> it will analyze, transform and handles complex logic 
+
+CTE --> common table Expression 
+
+Temporary table inside your query
+
+WITH temp AS (
+    SELECT name, marks FROM students
+)
+SELECT * FROM temp;----> it will be clean and readable
+
+WINDOW CALCULATIONS:
+
+it is used when you want calculation without grouping the rows
+
+it will help by not losting the data , it contains partition by --> grouping(like group by but it wont collapse)
+
+order by --> ordering inside each group
+
+Row_number() --> assigns a unique sequence number to each row 
+
+it will assign numbers quickly, 
+
+select name, marks ROW_NUMBER() OVER (order by marks desc) as runfrom student;
+
+Rank() -> it will give same rank for ties
+
+but skips the next number
+
+select name, marks RANK() OVER (order by marks desc) as rn from student;
+
+here if two students perform same rank, it would assign same number, like 2 2 but it would skip 3 and moves to 4
+
+Output:
+name	marks	rnk
+Arun	95	1
+Bala	90	2
+Chitra	90	2
+Devi	85	4
+
+👉 Notice: 3 is skipped ❌
+
+DENSE_RANK() -> it is same as rank but does not skip numbers 
+
+select name,marks DENSE_RANK() OVER (order by marks DESC) AS drnk from student;
+
+name	marks	drnk
+Arun	95	1
+Bala	90	2
+Chitra	90	2
+Devi	85	3
+
+LEAD() --> it will gets you next row value
+
+select name,marks, LEAD(marks) OVER (order by marks desc) as next_marks from student;
+
+name	marks	next_marks
+Arun	95	90
+Bala	90	90
+Chitra	90	85
+Devi	85	NULL
+
+👉 Shows next row value
+
+Lag() --> gets you previous row value 
+
+SELECT name, marks,
+       LAG(marks) OVER (ORDER BY marks DESC) AS prev_marks
+FROM student;
+
+name	marks	prev_marks
+Arun	95	NULL
+Bala	90	95
+Chitra	90	90
+Devi	85	90
+
+👉 Shows previous row value
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

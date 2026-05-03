@@ -1,0 +1,87 @@
+URL in api looks like 
+https://api.example.com/users/10?active=true
+
+url is the address where you send request 
+
+/users/10 is a path , ?active=true is a Query parameters
+
+HTTP methods:
+
+GET --> read data, get users
+POST --> create data , add user
+
+below these three use request body(json)
+PUT --> update full data --> update user
+PATCH --> update partial --> update email only 
+DELETE --> remove data --> delete user
+
+GET --> used to fetch data  , data will be visible in url , no body is used 
+
+fetch("http://localhost:3000/users?name=Tharun");
+
+
+POST --> send via body , create data 
+
+POST/users
+Body (JSON):
+{
+  "name": "Tharun",
+  "age": 20
+}
+
+fetch("http://localhost:3000/users", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    name: "Tharun",
+    age: 20
+  })
+});
+
+PUT --> update data 
+it will replace full data as 1 
+
+URL:
+PUT /users/1
+Body:
+{
+  "name": "Tharun Updated",
+  "age": 21
+}
+
+
+PATCH → Update partial
+URL:
+PATCH /users/1
+Body:
+{
+  "age": 22
+}
+
+👉 Only updates given fields
+
+PUG:
+
+pug is a template language used to generate html dynamically 
+
+it removes unwanted repeated syntax and heavy boilerplate, pug is mainly used in backend web development in node js and express 
+
+here we not use closing tags 
+<div class="card">
+  <h1>Hello</h1>
+  <p>Welcome</p>
+</div>
+
+div.card
+  h1 Hello
+  p Welcome
+
+we write like this
+
+install pug using npm install express pug
+
+
+
+

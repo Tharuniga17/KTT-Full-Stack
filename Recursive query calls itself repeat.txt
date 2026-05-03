@@ -1,0 +1,71 @@
+Recursive query calls itself repeatedly until certain condition is met 
+
+every query will have 3 parts
+
+with recursive name as (
+     ---starting point---
+     union all 
+     ---recursive case---
+)
+select * from name;
+
+base --> starting value , recursive --> repeat logic , Condition --> when to stop
+
+with recursive numbers as (
+select 1 as n -- base 
+union all 
+select n + 1 from numbers where n < 5
+)
+select * from numbers;
+
+
+PIVOT --> convert rows to columns 
+
+student_marks
+name	subject	marks
+Arun	Math	90
+Arun	Science	80
+Bala	Math	70
+Bala	Science	60
+🎯 Goal:
+
+Convert this into:
+
+name	Math	Science
+Arun	90	80
+Bala	70	60
+
+
+select * from (select name, subject, am from student_marks) as source pivot (max(marks) for subject in ([Math],[Science]) as pivot_table;
+
+in postgre sql pivot is not supported 
+
+unpivot --> will convert columns to rows
+
+select name ,subject, marks from academics unpivot(marks for subject in (Math,Science) ) as unpivot_table;
+
+cte --> common table expressions
+
+it will store the temporary result set , works like a mini-table inside query
+
+with marks as (
+select name,marks from students where marks > 90) 
+select * from high_marks;
+
+it helps in recursion, makes query clean and reusable, better than subqueries
+
+Dynamic sql --> sql query created at run time (not fixed) but here the value will be placed at runtime
+SELECT * FROM students WHERE name = ?;
+
+
+
+
+
+
+
+
+
+
+
+
+ 

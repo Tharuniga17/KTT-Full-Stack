@@ -1,0 +1,247 @@
+JOIN is used to combine rows from two or more tables based on a column between them 
+
+Inner Join:
+
+returns only matching rows from both tables 
+
+left Join:
+
+return all rows from left table and matching from right
+
+right join:
+
+return all rows from right and matching rows from left
+
+Full outer join:
+
+return all rows from both tables
+
+self join:
+
+joining a table with itself
+
+because sometimes data is related within the same table itself
+
+select e.name as employee, m.name as manager from employees e left join employees m on e.manager_id = m.id;
+
+Subquery:
+
+it is just a query inside another query, we run the inner query first and use its result in the outer query 
+
+scalar subquery => single row + single column
+
+select name from student where marks > (select avg(marks) from student);
+
+column subquery => returns one column and multiple rows
+
+used with in,all,any 
+
+select name from student where dept_id in (select dept_id from departments);
+
+Row subquery => compares multiple columns at once
+
+select * from student where(dept_id, marks) = (select dept_id, max(marks) from student group by dept_id limit 1);
+
+
+for returning a full table:
+
+select * from(select * from student where marks > 80) as high scores;
+
+Types of subqueries:
+
+non-correlated subquery:
+
+runs once only
+
+SELECT name
+FROM student
+WHERE marks > (SELECT AVG(marks) FROM student);
+
+correlated query:
+
+runs for every row 
+
+select s1.name from student s1 where marks > (select avg(marks) from student s2 where s1.dept_id = s2.dept_id);
+
+Table subquery:
+select * from (select dept_id, max(marks) as max_marks from students group by dept_id) t;
+
+correlated subquery --> runs for each row of outer query
+
+select * from students s where marks > (
+select avg(marks) from students where dept_id = s.dept_id
+);
+
+Nested subquery -> a query inside another query and again inside another query and so on 
+
+SELECT name
+FROM students
+WHERE dept_id = (
+    SELECT dept_id
+    FROM departments
+    WHERE dept_name = (
+        SELECT 'CSE'
+    )
+);
+
+SELECT name
+FROM students
+WHERE marks > (
+    SELECT AVG(marks)
+    FROM students
+    WHERE dept_id = (
+        SELECT dept_id
+        FROM departments
+        WHERE dept_name = 'CSE'
+    )
+); these are nested subquery
+
+
+Views:
+
+view is like a filtered result or saved rule which we run it later, the filtered result can be stored later called view .
+
+instead of filtering everytime we can write a shortcut rule, whenever someone asks for the students , show the filtered results like that 
+
+here we are not creating a new data we just store the logic , it is used for no repetition, easy to use, security , it just acts as a virtual table , it does not store data but fetches data from the original table
+
+create view cse_students as select name,marks from students where dpt = 'CSE';
+
+create view  cse_students as
+select name,marks from employee where dept = 'CSE';
+
+select * from cse_students;
+
+with check option:
+
+CREATE VIEW cse_students AS
+SELECT *
+FROM students
+WHERE dept = 'CSE'
+WITH CHECK OPTION;  here we cannot insert non cse data though this view
+
+for creating or replacing view:
+
+CREATE OR REPLACE VIEW cse_students as 
+select name 
+from students
+where dept = 'CSE';  //it is used if we want to modify view 
+
+if dont need a view anymore:
+
+drop view view_name; --> it is used if you dont need a view anymore
+
+String functions:
+
+concat -> join strings
+
+select concat('Arun','kumar'); --> shows arun kumar
+
+substring -> extract part of text
+
+select substring('karthik',1,4); --> it will extract that character alone
+
+replace -> replace text 
+
+select replace('Hello world','world','sql');
+
+for converting to upper:
+
+select upper('arun');
+
+for converting to lower:
+
+select lower('arun');
+
+length -> counting characters
+
+select length('Arun');
+
+
+Numeric Functions:
+
+floor -> round down
+select floor(5.8);
+
+ceiling -> round up
+select ceiling(5.2);
+
+round -> round normally 
+select round(5.6);
+
+ABS -> absolute value 
+select abs(-10)
+
+mod -> remainder
+select mod(10,3);
+
+DATE and Time Functions:
+
+select date('2025-04-20 10:30:00') --> extract date only
+
+SELECT TIME('2025-04-20 10:30:00'); --> will extract time only
+
+select dateadd(day,5,'2025-04-20'); -> it will add days/month/years
+
+output -> 2025-04-25
+
+extract part of date:
+
+select datepart(year, '2025-04-20'); --> 2025
+
+Timestamp -> current date and time extraction 
+
+select current_Timestamp; --> current system date and time
+
+conditional functions:
+
+case -> if elase in sql 
+
+select name, case when marks >= 90 then 'Excellent' 
+                  when marks >= 75 then 'good' else 'average' 
+             end as grade from students;
+end -> ends the case and grade is the new column 
+
+NULL IF -> it compares two values if value1 == value2 means return null otherwise return value 1 
+
+select nullif(10,10);
+if both are equal return true else return null
+
+select nullif(10,5);
+here 10 != 5 so return 10;
+
+it is used mainly to handle special cases and to avoid errors
+
+coalesce is used to return the first non-null value from a list 
+
+it will check the value first from left to right if value is not null, return value1, else value2 and so on
+
+
+select coalesce(null,null,10,20); the first non-null is 10 
+
+select trim(' Arun ');
+
+select distinct left(name,2) from students;
+select distinct right(name,2) from students;
+
+select distinct position('a' in name) from employee;
+
+select distinct INITCAP(name) from employee;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

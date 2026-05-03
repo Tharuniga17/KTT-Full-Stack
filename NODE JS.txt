@@ -1,0 +1,309 @@
+NODE JS:
+
+it is a runtime environment, will lets you run javascript code outside of the browser which means on server/computer for that it will use v8 javascript engine , it will convert the javascript code into machine code so that computer can understand and execute it.
+
+Node js was created by Ryan Dahl 
+
+before node was built --> servers use java, python, php but these are blocking model 
+
+some problems are, 
+handling multiple users at the same time --> if 1000 people open a website means we need 1000 threads
+one request = one thread , so lot of cpu usage and wastage of memory, server slows down 
+
+But node js is asynchronous perform multiple tasks at a time and faster handling
+
+when we run the command of node app.js 
+
+--> node will process starts, our file will be loaded into memory 
+--> then node will initialize the environment like global objects, internal modules, event loop
+--> v8 engine starts which takes your code and checks syntax 
+
+v8 creates call stack(lifo) and heap memory 
+
+--> stores functions in the stack 
+--> heap memory stores objects, arrays, 
+
+The stack will handle the execution and heap will handles storage 
+
+event-driven --> when something happens, run this function 
+
+node js is server side --> backend 
+
+it will handle data, apis, files, server
+
+node js apis --> const fs = require('fs')
+
+can read/write files, access os and handle network
+
+event loop --> it will continuously check the call stack, if the call stack is empty it go for next task, it will be running continuously
+
+libuv --> it is a open source support library which will perform asynchronous operations
+
+Node js is a cli means we can run that from terminal 
+
+node --watch app.js --> will automatically restarts when file changes
+
+node opens > called repl --> read, evaluate, print, loop
+
+for debugging --> node --inspect app.js
+
+npm --> node package manager 
+
+npm init
+
+npm install express
+
+NODE FLAGS:
+
+node -v
+
+for checking syntax errors, -> node --check app.js
+
+node js will execute synchronous code first, then microtasks(promises) then macrotasks(settimeout) 
+
+
+Client Request
+   ↓
+Event Queue
+   ↓
+Event Loop
+   ↓
+Call Stack (sync tasks)
+   ↓
+If async → libuv (thread pool) --> it will present in libuv
+   ↓
+Callback Queue
+   ↓
+Event Loop → Call Stack
+   ↓
+Response Sent
+
+KEY FEATURES OF NODE JS:
+
+single threaded architecture
+non blocking i/o
+it is event driven
+cross platform
+
+There are different queues/ phases inside the event loop that will decide when your code runs
+
+console.log("Start") --> will runs immediately in call stack
+
+process.nextTick() --> special queue called next tick queue , it will run after sync code and runs before everything else like promises
+
+
+STREAMS AND BUFFERS:
+
+buffer--> it is the temporary memory storage or binary data since computers dont understand text directly, they use binaries
+
+streams --> data is processed piece by piece like chunks
+
+for that it will use a node js streams api to read a file efficiently
+
+const fs = require("fs");
+const stream = fs.createReadStream("bigfile.txt") --> it indicates not to load full file into memory, read piece by piece
+stream.on("data",callback); --> it shows whenever a chunk is ready run this function
+
+console.log("chunk received",chunk);
+
+--------------------------------------------------------------
+
+Modules in Node js:
+
+Modules --> is a separate file that will contains reusable code
+
+instead of writing everything in one file --> splitting into multiple file 
+each file = one module
+
+modules are used to organize code, reuse code and avoid confusion 
+
+fs module(file system) 
+--> read files, write files and delete files
+
+const fs = require("fs");
+
+fs.readFile("data.txt", "utf8", (err, data) => {
+  console.log(data);
+});
+
+fs.writeFile("file.txt","hello",(err) => {}); --> write files
+
+fs.appendFile("file.txt","more data", () => {}); --> add file or data
+
+fs.unlink("file.txt", () => {}) --> delete files
+
+fs.mkdir("folder",()=>{}); --> creates new folder
+
+Read directory => fs.readdir("./",(err,files)=> {});
+
+http module:
+
+used to create web server, handle requests
+
+const http = require("http");
+http.createServer((req,res) =>{
+res.end("Hello");
+}).listen(3000);
+
+for listening on port:
+
+server.listen(3000);
+
+
+path module:
+
+used to work with file and directory paths safely across different operating systems like windows, Linux, maxOS
+
+const path = require("path");
+console.log(path.join(__dirname, "file.txt"));
+
+__dirname → gives current folder path
+"file.txt" → file name
+path.join() → safely combines them
+
+
+/home/user/project/file.txt
+
+common path methods
+
+path.join() --> joins multiple path parts safely
+
+path.resolve() --> it will give absolute path
+
+path.basename() --> returns file name only like file.txt
+
+path.extname() --> gets file extension path.extname("file.txt"); --> .txt 
+
+path.dirname("/home/user/file.txt"); --> it shows only directory --> /home/user
+
+
+Request object:
+
+req.url --> route like /home
+req.method --> get, post
+
+Response object:
+
+res.write() --> send data
+res.end() --> ends response
+res.setHeader() --> set headers
+
+os Module --> gets system info
+
+const os = require("os");
+
+os.platform() ---> os type
+os.arch() --> cpu architecture
+os.freemem() ---> free up the memory
+os.totalmem() --> total memory 
+os.cpus() --> cpu info
+
+url module --> url parsing
+
+url.parse("https://example.com/home")
+
+Crypto module --> security 
+
+const crypto = require("crypto")
+
+crypto.createHash("sha234").update("hello").digest("hex");
+
+NVM lets u install multiple nodejs versions so we can switch between the versions easily .
+we use this because different projects need different node versions 
+
+for installing
+      nvm install 18
+      nvm use 18
+      nvm list
+      nvm alias default 18 
+
+Fast Node Manager -->  same as lets u run multiple node js versions , we can switch between the versions easily
+fnm install 20, fnm use 20 , fnm list , it is fast and modern, it is built with rust, and performance is very high 
+
+
+-----------------------------
+
+create modules:
+
+it is custom module that will be created by ourselfs and reuse in other files using require().
+create a file and add code inside it and export 
+
+file name --> calculator.js
+function add(a,b){
+   return a+b;
+}
+function multiply(a,b){
+   return a*b;
+}
+module.exports = {
+   add,multiply
+};  --> here we are exporting the multiple functions as object 
+
+another file create app.js and import it
+
+const calc = require("./calculator");
+
+console.log(calc.add(10,5));
+console.log(calc.multiply(4,3));
+
+
+NPM ---> node package manager 
+      it is a tool that comes with node js and used to install, manage and share libraries (packages)
+   Dependency --> it is any external package our project uses like express, axios and lodash
+
+for checking --> node -v
+                 npm -v 
+
+Initialize project ---> npm init / npm init -y
+then it will create package.json
+
+then installing dependencies  --> npm install express 
+                                  npm i express
+
+atlast we run it using npm start, npm run dev 
+
+Reading Files in Node.js
+
+const fs = require("fs") --> fs is file system module
+
+fs.readFile() --> reads the entire file at once and gives the result
+
+fs.readFile(path,options,callback);
+
+fs.createReadStream() --> reads the file chunk by chunk instead of loading whole file
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
